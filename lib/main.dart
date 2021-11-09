@@ -1,7 +1,11 @@
+import 'package:b3firstproject/helper/firestoreHelper.dart';
 import 'package:b3firstproject/retour.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -53,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool valeur= true;
   String message="Bienvenue";
   String passcode="";
-  String email="";
+  late String? email;
   List tableau = ["Valeur","coucou","Je m'appelle","coucou","Je m'appelle","coucou","Je m'appelle","coucou","Je m'appelle","coucou","Je m'appelle"];
 
 
@@ -133,11 +137,21 @@ class _MyHomePageState extends State<MyHomePage> {
               print("appuyer");
               Navigator.push(context, MaterialPageRoute(
                   builder: (BuildContext context){
-                    return Retour(mail:email,password: passcode,);
+                    return Retour(mail:email!,password: passcode,);
                   }
               ));
             },
             child: const Text('Connexion'),
+          ),
+
+
+          ElevatedButton(
+
+            onPressed: (){
+              Firestorehelper().register(email!, passcode, 'Dissingar', 'Djino');
+
+            },
+            child: const Text('Inscription'),
           ),
 
 
