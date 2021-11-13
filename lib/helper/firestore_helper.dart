@@ -1,4 +1,3 @@
-//Importation
 import'package:firebase_auth/firebase_auth.dart';
 import'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,10 +6,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class Firestorehelper{
   //Variable
+
   final firebaseAuth = FirebaseAuth.instance;
   final firebaseStorage = FirebaseStorage.instance;
   final cloudFirestore = FirebaseFirestore.instance;
-  final firestore_profil = FirebaseFirestore.instance.collection("profil");
+  final firestoreProfil = FirebaseFirestore.instance.collection("profil");
 
 
 
@@ -35,7 +35,7 @@ Future <User> connect(String mail, password) async{
 
 
 addUser(Map<String,dynamic> map, String identifiant){
-  firestore_profil.doc(identifiant).set(map);
+  firestoreProfil.doc(identifiant).set(map);
 
 }
 
