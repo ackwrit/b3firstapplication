@@ -38,6 +38,8 @@ dependencies:
   firebase_core: ^1.10.0
   firebase_storage: ^10.1.0
   cloud_firestore: ^3.1.0
+  date_picker_timeline: ^1.2.3
+  file_picker: ^4.2.3
 
 
 dev_dependencies:

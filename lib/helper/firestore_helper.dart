@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import'package:firebase_auth/firebase_auth.dart';
 import'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,6 +13,7 @@ class Firestorehelper{
   final firebaseStorage = FirebaseStorage.instance;
   final cloudFirestore = FirebaseFirestore.instance;
   final firestoreProfil = FirebaseFirestore.instance.collection("profil");
+  final firestockageImage = FirebaseStorage.instance.ref("imageProfil");
 
 
 
@@ -39,6 +42,17 @@ Future <User> connect(String mail, password) async{
 
 addUser(Map<String,dynamic> map, String identifiant){
   firestoreProfil.doc(identifiant).set(map);
+
+}
+
+
+Future <String> stockageImage(String name,Uint8List bytes) async{
+  //Sotckage de l'image dans la base de donnée
+  TaskSnapshot download = await FirebaseStorage.instance.ref("profil/$name").putData(bytes);
+  //récupération du chemin de l'image dans la base donnée
+  String url = await download.ref.getDownloadURL();
+  return url;
+
 
 }
 
