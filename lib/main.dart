@@ -1,4 +1,5 @@
 import 'package:b3firstproject/helper/firestore_helper.dart';
+import 'package:b3firstproject/profil.dart';
 import 'package:b3firstproject/retour.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -64,6 +65,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   MessageError(){
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context){
+        return AlertDialog(
+          content: const Text('La saisie de votre mail ou password est invalide'),
+          actions: [
+
+            ElevatedButton(
+                onPressed:(){
+                  Navigator.pop(context);
+                },
+                child: const Text('Ok')
+            ),
+
+          ],
+
+        );
+      }
+    );
 
   }
   @override
@@ -135,16 +156,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ElevatedButton(
 
             onPressed: (){
+
+
               Firestorehelper().connect(email, passcode).then((value){
                 String identifiant = value.uid;
                 Navigator.push(context, MaterialPageRoute(
                     builder: (BuildContext context){
                       //accéder au profil
-                      return Retour(mail:email,password: passcode,);
+                      return ProfilPage(identifiant: identifiant,);
                     }
                 ));
+
               }).catchError((erreur){
-                //Afficher un message d'erreur
                 MessageError();
               });
 
