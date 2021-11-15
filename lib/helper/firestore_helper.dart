@@ -19,9 +19,12 @@ register(String mail, String password,String nom,String prenom) async{
   var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: mail, password: password);
   User user = result.user!;
   String uid = user.uid;
+
   Map <String,dynamic> map ={
     "nom": nom,
     "prenom":prenom
+
+
   };
   addUser(map,uid);
 }

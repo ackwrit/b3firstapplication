@@ -14,6 +14,11 @@ class Retour extends StatefulWidget{
 
 
 class RetourState extends State<Retour>{
+  PageController controller = PageController(initialPage: 0);
+  String nom = "";
+  String prenom = "";
+  var imageProfil;
+  var dateNaissance;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -22,13 +27,86 @@ class RetourState extends State<Retour>{
         title: const Text('Deuxième page'),
         centerTitle: true,
       ),
-      body: Text("mon adresse mail est la suivante : ${widget.mail} et le mot passe est ${widget.password}",
-        style: const TextStyle(
-            color: Colors.red,
-          fontSize: 25
+      body: bodyPage(),
+
+    );
+  }
+
+
+
+  Widget bodyPage(){
+    return Column(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height/1.5,
+          width: MediaQuery.of(context).size.width,
+          child: PageView(
+            controller: controller,
+            children: [
+              Center(
+                child:  recuperNom(),
+              ),
+              Center(
+                child: recuperPrenom(),
+              ),
+
+
+              Text("Afficher date de naissance"),
+              Text("Afficher image"),
+
+            ],
+
+          ),
+
         ),
+
+
+        ElevatedButton(
+            onPressed: (){
+              print("élement suivant");
+            },
+            child: const Text('Suivant')
+        )
+      ],
+    );
+  }
+
+
+
+  Widget recuperNom(){
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'Entrer votre nom',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+        )
       ),
-      backgroundColor: Colors.amber
+      onChanged: (text){
+        setState(() {
+          nom = text;
+        });
+      },
+
+    );
+  }
+
+
+
+
+  Widget recuperPrenom(){
+    return TextField(
+      decoration: InputDecoration(
+          hintText: 'Entrer votre prénom',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          )
+      ),
+      onChanged: (text){
+        setState(() {
+          nom = text;
+        });
+      },
+
     );
   }
 

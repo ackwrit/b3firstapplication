@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool valeur= true;
   String message="Bienvenue";
   String passcode="";
-  late String? email;
+  String email = "";
   List tableau = ["Valeur","coucou","Je m'appelle","coucou","Je m'appelle","coucou","Je m'appelle","coucou","Je m'appelle","coucou","Je m'appelle"];
 
 
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
               print("appuyer");
               Navigator.push(context, MaterialPageRoute(
                   builder: (BuildContext context){
-                    return Retour(mail:email!,password: passcode,);
+                    return Retour(mail:email,password: passcode,);
                   }
               ));
             },
@@ -148,7 +148,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ElevatedButton(
 
             onPressed: (){
-              Firestorehelper().register(email!, passcode, 'Dissingar', 'Djino');
+              //Firestorehelper().register(email!, passcode, 'quartz', 'alan');
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (BuildContext context){
+                    return Retour(mail: email, password: passcode);
+                  }
+              ));
 
             },
             child: const Text('Inscription'),
