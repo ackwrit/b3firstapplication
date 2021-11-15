@@ -73,9 +73,15 @@ class RetourState extends State<Retour>{
 
         ElevatedButton(
             onPressed: (){
-              print(dateNaissance);
+              Map <String,dynamic> map ={
+                "PRENOM":prenom,
+                "NOM":nom,
+                "BIRTHDAY":dateNaissance,
+                "IMAGE":pathImage
+              };
+              Firestorehelper().register(widget.mail, widget.password, map);
             },
-            child: const Text('Suivant')
+            child: const Text('Enregistrement')
         )
       ],
     );
@@ -245,6 +251,7 @@ class RetourState extends State<Retour>{
                         pathImage = value;
                       });
                     });
+                    Navigator.pop(context);
                   },
                   child: Text('Enregistrer')
               ),

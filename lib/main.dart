@@ -62,14 +62,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+
+  MessageError(){
+
+  }
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
+
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -134,12 +135,22 @@ class _MyHomePageState extends State<MyHomePage> {
           ElevatedButton(
 
             onPressed: (){
-              print("appuyer");
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (BuildContext context){
-                    return Retour(mail:email,password: passcode,);
-                  }
-              ));
+              Firestorehelper().connect(email, passcode).then((value){
+                String identifiant = value.uid;
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (BuildContext context){
+                      //accéder au profil
+                      return Retour(mail:email,password: passcode,);
+                    }
+                ));
+              }).catchError((erreur){
+                //Afficher un message d'erreur
+                MessageError();
+              });
+
+
+
+
             },
             child: const Text('Connexion'),
           ),
